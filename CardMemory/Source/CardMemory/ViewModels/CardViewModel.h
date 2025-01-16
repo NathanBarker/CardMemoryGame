@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MVVMViewModelBase.h"
+#include "CardMemoryMVVMViewModelBase.h"
 #include "CardMemory/GameData/CardModel.h"
 #include "CardViewModel.generated.h"
 
@@ -11,9 +11,20 @@
  * 
  */
 UCLASS()
-class CARDMEMORY_API UCardViewModel : public UMVVMViewModelBase
+class CARDMEMORY_API UCardViewModel : public UCardMemoryMVVMViewModelBase
 {
 	GENERATED_BODY()
+	
+public:
+	UCardViewModel();
+
+	void SetType(const EType NewType);
+	void SetPatternType(const int32& NewPatternType);
+	void SetIsRevealed(const bool NewIsRevealed);
+
+	bool GetIsRevealed() const;
+	int32 GetPatternType() const;
+	EType GetType() const;
 
 private:
 	UPROPERTY(FieldNotify, Setter, Getter)
@@ -23,45 +34,5 @@ private:
 	int32 PatternType = -1;
 
 	UPROPERTY(FieldNotify, Setter, Getter)
-	bool bIsRevealed = false;
-
-public:
-	void SetType(const EType NewType)
-	{
-		if (UE_MVVM_SET_PROPERTY_VALUE(Type, NewType))
-		{
-			UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(Type);
-		}
-	}
-	
-	void SetPatternType(const int32 NewPatternType)
-	{
-		if (UE_MVVM_SET_PROPERTY_VALUE(PatternType, NewPatternType))
-		{
-			UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(PatternType);
-		}
-	}
-
-	void SetbIsRevealed(bool NewbIsRevealed)
-	{
-		if (UE_MVVM_SET_PROPERTY_VALUE(bIsRevealed, NewbIsRevealed))
-		{
-			UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(bIsRevealed);
-		}
-	}
-
-	bool GetbIsRevealed() const
-	{
-		return bIsRevealed;
-	}
-
-	int32 GetPatternType() const
-	{
-		return PatternType;
-	}
-
-	EType GetType() const
-	{
-		return Type;
-	}
+	bool IsRevealed = false;
 };

@@ -5,13 +5,20 @@
 
 #include "MVVMGameSubsystem.h"
 #include "CardMemory/ViewModels/CardViewModel.h"
+#include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
+
+UE_DEFINE_GAMEPLAY_TAG(UIMessagePopulateCards, "UIMessagePopulateCards");
 
 void ACardMemoryGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
 
 	const UGameInstance* GameInstance = GetWorld()->GetGameInstance();
+	check(GameInstance);
+	
+	ViewModelGameSubsystem = GameInstance->GetSubsystem<UMVVMGameSubsystem>();
 	check(ViewModelGameSubsystem);
+	
 	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	check(MessageSubsystem);
 	
@@ -24,11 +31,12 @@ void ACardMemoryGameModeBase::InitGame(const FString& MapName, const FString& Op
 	                                                                          GetViewModelCollection();
 	check(GlobalViewModelCollection);
 
-	FMVVMViewModelContext CardVMContext = FMVVMViewModelContext();
-	CardVMContext.ContextClass = UCardViewModel::StaticClass();
-	CardVMContext.ContextName = FName(GetNameSafe(UCardViewModel::StaticClass()));
+	// Todo: Create a level View model that contains an array of CardViewmodels that the MainScreen can iterate over
 
-	GlobalViewModelCollection->AddViewModelInstance(CardVMContext, NewObject<UCardViewModel>());
+	FMVVMViewModelContext LevelVMContext = FMVVMViewModelContext();
+	LevelVMContext.ContextClass = UCardLevelViewModel::StaticClass();
+	LevelVMContext.ContextName = FName(GetNameSafe(UCardLevelViewModel::StaticClass()));
+	GlobalViewModelCollection->AddViewModelInstance(LevelVMContext, NewObject<UCardViewModel>());
 }
 
 void ACardMemoryGameModeBase::StartPlay()
@@ -36,8 +44,6 @@ void ACardMemoryGameModeBase::StartPlay()
 	Super::StartPlay();
 
 	UE_LOG(LogTemp, Warning, TEXT("here"));
-
-	// TDOD: Create card data here and send to the main screen via gameplaymessages
 }
 
 void ACardMemoryGameModeBase::ResetLevel()

@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MVVMGameSubsystem.h"
 #include "NativeGameplayTags.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
-#include "ModelViewViewModel/Public/MVVMSubsystem.h"
 
 #include "CardMemoryGameModeBase.generated.h"
 
@@ -32,7 +32,7 @@ protected:
 
 private:
 	UPROPERTY()
-	TObjectPtr<UMVVMSubsystem> ViewModelGameSubsystem = nullptr;
+	TObjectPtr<UMVVMGameSubsystem> ViewModelGameSubsystem = nullptr;
 
 	int32 CurrentGameLevel = 0;
 

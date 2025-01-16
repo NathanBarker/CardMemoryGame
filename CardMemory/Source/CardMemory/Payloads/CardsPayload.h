@@ -1,10 +1,11 @@
 #pragma once
-#include "CardMemory/ViewModels/CardViewModel.h"
+
+#include "CardsPayload.generated.h"
 
 USTRUCT()
-struct FCardsMessage
+struct  FCardsMessage
 {
 	GENERATED_BODY()
 
-	TArray<UCardViewModel> CardViewModels = {};
+	int CardCount = 0;
 };

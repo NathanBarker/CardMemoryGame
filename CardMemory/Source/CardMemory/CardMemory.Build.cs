@@ -9,10 +9,13 @@ public class CardMemory : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
 		PublicDependencyModuleNames.AddRange(new string[]
-			{ "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "GameplayMessageRuntime" ,"CommonUI"});
+		{
+			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "GameplayMessageRuntime", "CommonUI",
+			"FieldNotification"
+		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
-			{"DeveloperSettings", "ModelViewViewModel"});
+			{ "DeveloperSettings", "ModelViewViewModel", "GameplayTags" });
 
 		// Uncomment if you are using Slate UI
 		PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
