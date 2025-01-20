@@ -7,7 +7,7 @@ UCardLevelViewModel::UCardLevelViewModel()
 	ConstructFieldsDelegates();
 }
 
-void UCardLevelViewModel::SetCardViewModels(const TArray<UCardViewModel> NewCardViewModels)
+void UCardLevelViewModel::SetCardViewModels(const TArray<UCardViewModel*>& NewCardViewModels)
 {
 	if (UE_MVVM_SET_PROPERTY_VALUE(CardViewModels, NewCardViewModels))
 	{
@@ -15,7 +15,7 @@ void UCardLevelViewModel::SetCardViewModels(const TArray<UCardViewModel> NewCard
 	}
 }
 
-TArray<UCardViewModel> UCardLevelViewModel::GetCardViewModels() const
+TArray<UCardViewModel*> UCardLevelViewModel::GetCardViewModels() const
 {
 	return CardViewModels;
 }

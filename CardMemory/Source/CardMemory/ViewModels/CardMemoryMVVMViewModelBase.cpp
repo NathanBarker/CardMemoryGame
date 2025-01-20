@@ -27,5 +27,5 @@ void UCardMemoryMVVMViewModelBase::OnFieldChanged(UObject* Object, UE::FieldNoti
 
 void UCardMemoryMVVMViewModelBase::BroadcastChange()
 {
-	Data.Broadcast();
+	ViewModelData.Broadcast();
 }

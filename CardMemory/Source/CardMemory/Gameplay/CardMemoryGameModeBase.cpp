@@ -4,7 +4,7 @@
 #include "CardMemoryGameModeBase.h"
 
 #include "MVVMGameSubsystem.h"
-#include "CardMemory/ViewModels/CardViewModel.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
 
 UE_DEFINE_GAMEPLAY_TAG(UIMessagePopulateCards, "UIMessagePopulateCards");
@@ -15,13 +15,13 @@ void ACardMemoryGameModeBase::InitGame(const FString& MapName, const FString& Op
 
 	const UGameInstance* GameInstance = GetWorld()->GetGameInstance();
 	check(GameInstance);
-	
-	ViewModelGameSubsystem = GameInstance->GetSubsystem<UMVVMGameSubsystem>();
+
+	UMVVMGameSubsystem* ViewModelGameSubsystem = GameInstance->GetSubsystem<UMVVMGameSubsystem>();
 	check(ViewModelGameSubsystem);
-	
+
 	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	check(MessageSubsystem);
-	
+
 	if (!IsValid(ViewModelGameSubsystem))
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to get the MVVM Subsystem"));
@@ -36,21 +36,16 @@ void ACardMemoryGameModeBase::InitGame(const FString& MapName, const FString& Op
 	FMVVMViewModelContext LevelVMContext = FMVVMViewModelContext();
 	LevelVMContext.ContextClass = UCardLevelViewModel::StaticClass();
 	LevelVMContext.ContextName = FName(GetNameSafe(UCardLevelViewModel::StaticClass()));
-	GlobalViewModelCollection->AddViewModelInstance(LevelVMContext, NewObject<UCardViewModel>());
+	CardLevelViewModel = NewObject<UCardLevelViewModel>();
+	GlobalViewModelCollection->AddViewModelInstance(LevelVMContext, CardLevelViewModel);
 }
 
 void ACardMemoryGameModeBase::StartPlay()
 {
 	Super::StartPlay();
-
-	UE_LOG(LogTemp, Warning, TEXT("here"));
 }
 
 void ACardMemoryGameModeBase::ResetLevel()
 {
 	Super::ResetLevel();
-}
-
-void ACardMemoryGameModeBase::StartNextLevel()
-{
 }

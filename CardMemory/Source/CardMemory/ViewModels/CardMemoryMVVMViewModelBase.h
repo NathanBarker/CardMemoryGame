@@ -6,7 +6,7 @@
 #include "MVVMViewModelBase.h"
 #include "CardMemoryMVVMViewModelBase.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDataUpdate);
+DECLARE_MULTICAST_DELEGATE(FOnDataUpdate);
 
 /**
  * 
@@ -18,7 +18,7 @@ class CARDMEMORY_API UCardMemoryMVVMViewModelBase : public UMVVMViewModelBase
 
 public:
 	UCardMemoryMVVMViewModelBase() = default;
-	FOnDataUpdate Data;
+	FOnDataUpdate ViewModelData;
 
 protected:
 	void ConstructFieldsDelegates();
