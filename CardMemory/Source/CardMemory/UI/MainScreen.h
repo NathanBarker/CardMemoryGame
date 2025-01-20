@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "CardMemoryWidget.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "CardMemory/Payloads/CardsPayload.h"
 #include "MainScreen.generated.h"
 
-class UGameplayMessageSubsystem;
 class UGridPanel;
 class UCardLevelViewModel;
 

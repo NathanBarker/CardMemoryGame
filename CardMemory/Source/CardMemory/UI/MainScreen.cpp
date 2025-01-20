@@ -1,12 +1,9 @@
 // // Nathan Barker Card Memory Game Personal Training Project. 
 
-
 #include "MainScreen.h"
-#include "CardMemory/Gameplay/CardMemoryGameModeBase.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
+#include "CardMemory/UI/CardMemoryHUD.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
 #include "GameplayTagContainer.h"
-
 
 void UMainScreen::NativeConstruct()
 {
@@ -18,7 +15,7 @@ void UMainScreen::NativeConstruct()
 	WidgetViewModel = GetVM<UCardLevelViewModel>();
 	SetViewModel(WidgetViewModel);
 
-	MessageSubsystem.BroadcastMessage(UIMessageControllerReady, nullptr);
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString::Printf(TEXT("Main Screen Created")));
 }
 
 void UMainScreen::UpdateWidget()

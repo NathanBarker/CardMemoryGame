@@ -27,8 +27,10 @@ public:
 		UMVVMGameSubsystem* ViewModelGameSubsystem = GameInstance->GetSubsystem<UMVVMGameSubsystem>();
 		check(ViewModelGameSubsystem);
 
-		if (UMVVMViewModelBase* ViewModelInstance = ViewModelGameSubsystem->GetViewModelCollection()->FindFirstViewModelInstanceOfType(
-			T::StaticClass()))
+		UMVVMViewModelBase* ViewModelInstance = ViewModelGameSubsystem->GetViewModelCollection()->FindFirstViewModelInstanceOfType(
+			T::StaticClass());
+
+		if (IsValid(ViewModelInstance))
 		{
 			T* CustomViewModel = Cast<T>(ViewModelInstance);
 			return CustomViewModel;
