@@ -1,10 +1,9 @@
 // // Nathan Barker Card Memory Game Personal Training Project. 
 
+#include "CardMemoryHUD.h"
 #include "MVVMGameSubsystem.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
-
-#include "CardMemoryHUD.h"
 
 UE_DEFINE_GAMEPLAY_TAG(UIMessagePopulateCards, "UIMessagePopulateCards");
 
@@ -48,7 +47,7 @@ void ACardMemoryHUD::BeginPlay()
 void ACardMemoryHUD::DebugViewModels()
 {
 	UCardViewModel* VM = NewObject<UCardViewModel>();
-	TArray<UCardViewModel*> VMs;
+	TArray<UCardViewModel*> VMs = {};
 	VMs.Emplace(VM);
-	CardLevelViewModel->SetCardViewModels(VMs);
+	CardLevelViewModel->SetCardViewModelsNewName(VMs);
 }

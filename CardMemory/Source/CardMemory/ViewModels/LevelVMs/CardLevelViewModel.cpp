@@ -4,18 +4,20 @@
 
 UCardLevelViewModel::UCardLevelViewModel()
 {
-	ConstructFieldsDelegates();
+	TArray<FName> DataObjectNames = {};
+	DataObjectNames.Emplace(GET_MEMBER_NAME_CHECKED(UCardLevelViewModel,CardViewModelsNewName));
+	ConstructFieldsDelegates(DataObjectNames,this);
 }
 
-void UCardLevelViewModel::SetCardViewModels(const TArray<UCardViewModel*>& NewCardViewModels)
+void UCardLevelViewModel::SetCardViewModelsNewName(const TArray<UCardViewModel*>& NewCardViewModelsNewName)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(CardViewModels, NewCardViewModels))
+	if (UE_MVVM_SET_PROPERTY_VALUE(CardViewModelsNewName, NewCardViewModelsNewName))
 	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(CardViewModels);
+		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(CardViewModelsNewName);
 	}
 }
 
-TArray<UCardViewModel*> UCardLevelViewModel::GetCardViewModels() const
+TArray<UCardViewModel*> UCardLevelViewModel::GetCardViewModelsNewName() const
 {
-	return CardViewModels;
+	return CardViewModelsNewName;
 }
