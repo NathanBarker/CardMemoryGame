@@ -4,23 +4,20 @@
 
 #include "IDetailTreeNode.h"
 
-void UCardMemoryMVVMViewModelBase::ConstructFieldsDelegates(const TArray<FName>& ObjectNames,
-                                                            UCardMemoryMVVMViewModelBase* VMClass)
+void UCardMemoryMVVMViewModelBase::ConstructFieldsDelegates()
 {
- 	if (!IsValid(VMClass))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to gacst the ViewModel context while constructing field delegates"));
-		return;
-	}
-
-	for (const FName ObjectName : ObjectNames)
-	{
-		const UE::FieldNotification::FFieldId FieldID = VMClass->GetFieldNotificationDescriptor().GetField(
-			VMClass->GetClass(), ObjectName);
-		FFieldValueChangedDelegate Delegate;
-		AddFieldValueChangedDelegate(FieldID, Delegate);
-		Delegate.BindUObject(this, &UCardMemoryMVVMViewModelBase::OnFieldChanged);
-	}
+	GetFieldNotificationDescriptor().ForEachField(StaticClass(),
+	                                              [this](const UE::FieldNotification::FFieldId FieldID) -> bool
+	                                              {
+		                                              if (FieldID.IsValid())
+		                                              {
+			                                              FFieldValueChangedDelegate Delegate;
+			                                              Delegate.BindUObject(this, &ThisClass::OnFieldChanged);
+			                                              AddFieldValueChangedDelegate(FieldID, Delegate);
+			                                              return true;
+		                                              }
+		                                              return false;
+	                                              });
 }
 
 void UCardMemoryMVVMViewModelBase::OnFieldChanged(UObject* Object, UE::FieldNotification::FFieldId FieldId)
