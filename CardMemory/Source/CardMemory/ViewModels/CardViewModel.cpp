@@ -4,7 +4,7 @@
 
 UCardViewModel::UCardViewModel()
 {
-	//ConstructFieldsDelegates(UCardViewModel::StaticClass());
+	ConstructFieldsDelegates();
 }
 
 void UCardViewModel::SetType(const EType NewType)

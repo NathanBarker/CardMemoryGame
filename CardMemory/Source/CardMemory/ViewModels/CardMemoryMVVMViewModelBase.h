@@ -21,7 +21,7 @@ public:
 	FOnDataUpdate ViewModelData;
 
 protected:
-	void ConstructFieldsDelegates(const TArray<FName>& ObjectNames, UCardMemoryMVVMViewModelBase* VMClass);
+	void ConstructFieldsDelegates();
 	void OnFieldChanged(UObject* Object, UE::FieldNotification::FFieldId FieldId);
 	void BroadcastChange();
 };

@@ -4,9 +4,7 @@
 
 UCardLevelViewModel::UCardLevelViewModel()
 {
-	TArray<FName> DataObjectNames = {};
-	DataObjectNames.Emplace(GET_MEMBER_NAME_CHECKED(UCardLevelViewModel,CardViewModelsNewName));
-	ConstructFieldsDelegates(DataObjectNames,this);
+	ConstructFieldsDelegates();
 }
 
 void UCardLevelViewModel::SetCardViewModelsNewName(const TArray<UCardViewModel*>& NewCardViewModelsNewName)

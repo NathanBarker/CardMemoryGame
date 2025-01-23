@@ -26,7 +26,7 @@ void UMainScreen::UpdateWidget()
 	}
 
 	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString::Printf(TEXT("Worked")));
-	// set text, image here
+	// refresh data
 }
 
 void UMainScreen::PopulateDeck(FGameplayTag InChannel, const FCardsMessage& InMessage)
