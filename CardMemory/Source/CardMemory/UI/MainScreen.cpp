@@ -14,8 +14,6 @@ void UMainScreen::NativeConstruct()
 	
 	WidgetViewModel = GetVM<UCardLevelViewModel>();
 	SetViewModel(WidgetViewModel);
-
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString::Printf(TEXT("Main Screen Created")));
 }
 
 void UMainScreen::UpdateWidget()
@@ -24,8 +22,6 @@ void UMainScreen::UpdateWidget()
 	{
 		return;
 	}
-
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString::Printf(TEXT("Worked")));
 	// refresh data
 }
 
