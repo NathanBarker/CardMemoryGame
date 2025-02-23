@@ -2,7 +2,6 @@
 
 #include "GameController.h"
 
-#include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
 #include "CardMemory/ViewModels/CardViewModel.h"
 #include "MVVMGameSubsystem.h"
 
@@ -59,6 +58,9 @@ TArray<UCardViewModel*> AGameController::CreateDeck(const int32 Level)
 		int32 RandomPatternType = rand() % 3 + 1;
 		CardViewModel->SetPatternType(RandomPatternType);
 		PairedCardViewModel->SetPatternType(RandomPatternType);
+
+		CardViewModel->SetIsRevealed(false);
+		PairedCardViewModel->SetIsRevealed(false);
 		
 		GlobalViewModelCollection->AddViewModelInstance(CardVMContext, CardViewModel);
 		GlobalViewModelCollection->AddViewModelInstance(CardVMPairContext, PairedCardViewModel);
@@ -68,9 +70,4 @@ TArray<UCardViewModel*> AGameController::CreateDeck(const int32 Level)
 	}
 
 	return CardViewModels;
-}
-
-void AGameController::BeginPlay()
-{
-	Super::BeginPlay();
 }

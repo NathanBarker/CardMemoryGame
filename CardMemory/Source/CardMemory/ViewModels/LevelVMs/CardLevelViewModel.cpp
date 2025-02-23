@@ -9,10 +9,7 @@ UCardLevelViewModel::UCardLevelViewModel()
 
 void UCardLevelViewModel::SetCardViewModels(const TArray<UCardViewModel*>& NewCardViewModels)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(CardViewModels, NewCardViewModels))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(CardViewModels);
-	}
+	UE_MVVM_SET_PROPERTY_VALUE(CardViewModels, NewCardViewModels);
 }
 
 TArray<UCardViewModel*> UCardLevelViewModel::GetCardViewModels() const

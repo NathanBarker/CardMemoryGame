@@ -24,9 +24,6 @@ class CARDMEMORY_API AGameController : public APlayerController
 public:
 	TArray<UCardViewModel*> CreateDeck(const int32 Level);
 
-protected:
-	virtual void BeginPlay() override;
-
 private:
 	int32 Level0CardAmount = 6;
 };

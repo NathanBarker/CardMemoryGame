@@ -5,7 +5,7 @@
 
 #include "CommonLazyImage.h"
 #include "Blueprint/WidgetTree.h"
-#include "Components/Overlay.h"
+#include "Components/WidgetSwitcher.h"
 
 void UCardPatternView::SetIconForPattern(const TSoftObjectPtr<UTexture2D>& PSIcon)
 {
@@ -17,11 +17,7 @@ void UCardPatternView::SetIconForPattern(const TSoftObjectPtr<UTexture2D>& PSIco
 
 void UCardPatternView::ShowPattern(const int32& PatternIndex)
 {
-	for (UOverlay* PatternOverlay : PatternOverlays)
-	{
-		PatternOverlay->SetVisibility(ESlateVisibility::Hidden);
-	}
-	PatternOverlays[PatternIndex]->SetVisibility(ESlateVisibility::Visible);
+	PatternWidgetSwitcher->SetActiveWidgetIndex(PatternIndex);
 }
 
 void UCardPatternView::NativeConstruct()
@@ -38,9 +34,4 @@ void UCardPatternView::NativeConstruct()
 			AllCardIcons.Emplace(LazyImage);
 		}
 	}
-
-	PatternOverlays.Emplace(Pattern1);
-	PatternOverlays.Emplace(Pattern2);
-	PatternOverlays.Emplace(Pattern3);
-	PatternOverlays.Emplace(Pattern4);
 }

@@ -7,6 +7,7 @@
 #include "CommonUserWidget.h"
 #include "CardPatternView.generated.h"
 
+class UWidgetSwitcher;
 class UCommonLazyImage;
 class UOverlay;
 
@@ -30,14 +31,5 @@ private:
 	TArray<TObjectPtr<UOverlay>> PatternOverlays = {};
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UOverlay> Pattern1 = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UOverlay> Pattern2 = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UOverlay> Pattern3 = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UOverlay> Pattern4 = nullptr;
+	TObjectPtr<UWidgetSwitcher> PatternWidgetSwitcher = nullptr;
 };

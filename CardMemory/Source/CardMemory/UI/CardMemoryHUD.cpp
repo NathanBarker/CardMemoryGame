@@ -46,7 +46,6 @@ void ACardMemoryHUD::PostInitializeComponents()
 void ACardMemoryHUD::BeginPlay()
 {
 	Super::BeginPlay();
-	DebugViewModels();
 
 	// TODO: Sort out creating a deck based on the level being played
 	APlayerController* PlayerController = GetOwningPlayerController();
@@ -66,12 +65,4 @@ void ACardMemoryHUD::BeginPlay()
 	}
 
 	CardLevelViewModel->SetCardViewModels(GameController->CreateDeck(0));
-}
-
-void ACardMemoryHUD::DebugViewModels()
-{
-	UCardViewModel* VM = NewObject<UCardViewModel>();
-	TArray<UCardViewModel*> VMs = {};
-	VMs.Emplace(VM);
-	CardLevelViewModel->SetCardViewModels(VMs);
 }

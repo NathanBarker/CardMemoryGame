@@ -8,7 +8,9 @@
 #include "CardMemory/Payloads/CardsPayload.h"
 #include "MainScreen.generated.h"
 
-class UGridPanel;
+class UUniformGridPanel;
+class UCardMemoryButtonBase;
+class UCardView;
 class UCardLevelViewModel;
 
 /**
@@ -26,8 +28,14 @@ protected:
 
 private:
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UGridPanel> CardDeck = nullptr;
+	TObjectPtr<UUniformGridPanel> CardDeck = nullptr;
 	
 	UPROPERTY(Transient)
 	TObjectPtr<UCardLevelViewModel> WidgetViewModel = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCardMemoryButtonBase> CardTemplate = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 ColumnMaxCount = 0;
 };
