@@ -11,6 +11,7 @@ CARDMEMORY_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UIMessagePopulateCards);
 
 class UGameplayMessageSubsystem;
 class UCardLevelViewModel;
+class AGameController;
 
 /**
  * 
@@ -29,4 +30,7 @@ class CARDMEMORY_API ACardMemoryHUD : public AHUD
 
 	UPROPERTY()
 	TObjectPtr<UCardLevelViewModel> CardLevelViewModel = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AGameController> GameController = nullptr;
 };

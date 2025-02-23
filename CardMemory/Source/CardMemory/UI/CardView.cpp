@@ -12,7 +12,7 @@ void UCardView::NativeConstruct()
 }
 
 void UCardView::NativeOnSelected(bool bBroadcast)
-{
+	{
 	Super::NativeOnSelected(bBroadcast);
 }
 
@@ -39,6 +39,11 @@ void UCardView::NativeOnHovered()
 void UCardView::NativeOnUnhovered()
 {
 	Super::NativeOnUnhovered();
+}
+
+void UCardView::HandleFocusReceived()
+{
+	Super::HandleFocusReceived();
 }
 
 void UCardView::SetPSIcon(const EType Type)

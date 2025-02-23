@@ -18,13 +18,13 @@ class CARDMEMORY_API UCardLevelViewModel : public UCardMemoryMVVMViewModelBase
 public:
 	UCardLevelViewModel();
 
-	void SetCardViewModelsNewName(const TArray<UCardViewModel*>& NewCardViewModels);
-	TArray<UCardViewModel*> GetCardViewModelsNewName() const;
+	void SetCardViewModels(const TArray<UCardViewModel*>& NewCardViewModels);
+	TArray<UCardViewModel*> GetCardViewModels() const;
 
 private:
 
 	UPROPERTY(FieldNotify, Getter, Setter)
-	TArray<UCardViewModel*> CardViewModelsNewName = {};
+	TArray<UCardViewModel*> CardViewModels = {};
 	
 	friend class UCardMemoryMVVMViewModelBase;
 };

@@ -21,10 +21,15 @@ public:
 	void SetType(const EType NewType);
 	void SetPatternType(const int32& NewPatternType);
 	void SetIsRevealed(const bool NewIsRevealed);
-
-	bool GetIsRevealed() const;
-	int32 GetPatternType() const;
+	void SetCardIndex(const int32 NewIndex);
+	void SetPairIndex(const int32 NewPairIndex);
+	
 	EType GetType() const;
+	int32 GetPatternType() const;
+	bool GetIsRevealed() const;
+	int32 GetCardIndex() const;
+	int32 GetPairIndex() const;
+	
 
 private:
 	UPROPERTY(FieldNotify, Setter, Getter)
@@ -35,4 +40,10 @@ private:
 
 	UPROPERTY(FieldNotify, Setter, Getter)
 	bool IsRevealed = false;
+	
+	UPROPERTY(FieldNotify, Setter, Getter)
+	int32 CardIndex = -1;
+	
+	UPROPERTY(FieldNotify, Setter, Getter)
+	int32 PairIndex = -1;
 };

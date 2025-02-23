@@ -31,9 +31,35 @@ void UCardViewModel::SetIsRevealed(const bool NewIsRevealed)
 	}
 }
 
+void UCardViewModel::SetCardIndex(const int32 NewIndex)
+{
+	if (UE_MVVM_SET_PROPERTY_VALUE(CardIndex, NewIndex))
+	{
+		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(CardIndex);
+	}
+}
+
+void UCardViewModel::SetPairIndex(const int32 NewPairIndex)
+{
+	if (UE_MVVM_SET_PROPERTY_VALUE(PairIndex, NewPairIndex))
+	{
+		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(PairIndex);
+	}
+}
+
 bool UCardViewModel::GetIsRevealed() const
 {
 	return IsRevealed;
+}
+
+int32 UCardViewModel::GetCardIndex() const
+{
+	return CardIndex;
+}
+
+int32 UCardViewModel::GetPairIndex() const
+{
+	return PairIndex;
 }
 
 int32 UCardViewModel::GetPatternType() const

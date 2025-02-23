@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "CommonButtonBase.h"
-#include "CommonUserWidget.h"
 #include "CardMemory/GameData/CardModel.h"
 #include "CardView.generated.h"
 
@@ -28,6 +27,7 @@ protected:
 	virtual void NativeOnDisabled() override;
 	virtual void NativeOnHovered() override;
 	virtual void NativeOnUnhovered() override;
+	virtual void HandleFocusReceived() override;
 
 private:
 	UPROPERTY(meta=(BindWidget))
