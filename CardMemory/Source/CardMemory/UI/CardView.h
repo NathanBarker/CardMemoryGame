@@ -26,11 +26,8 @@ protected:
 	virtual void NativeOnSelected(bool bBroadcast) override;
 	virtual void NativeOnDeselected(bool bBroadcast) override;
 	virtual void NativeOnClicked() override;
-	virtual void NativeOnEnabled() override;
-	virtual void NativeOnDisabled() override;
-	virtual void NativeOnHovered() override;
-	virtual void NativeOnUnhovered() override;
-	virtual void HandleFocusReceived() override;
+	virtual void NativeOnRemovedFromFocusPath(const FFocusEvent& InFocusEvent) override;
+	virtual void NativeOnAddedToFocusPath(const FFocusEvent& InFocusEvent) override;
 	virtual void UpdateWidget() override;
 
 private:

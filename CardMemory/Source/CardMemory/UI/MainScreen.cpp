@@ -57,6 +57,8 @@ void UMainScreen::UpdateWidget()
 			CurrentColumn++;
 		}
 	}
+	UCardMemoryButtonBase* FirstCardView = Cast<UCardMemoryButtonBase>(CardDeck->GetChildAt(0));
+	FirstCardView->SetFocus();
 }
 
 void UMainScreen::PopulateDeck(FGameplayTag InChannel, const FCardsMessage& InMessage)

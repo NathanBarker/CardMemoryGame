@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "CommonUserWidget.h"
 #include "MVVMGameSubsystem.h"
 #include "CardMemoryWidget.generated.h"
@@ -13,7 +14,7 @@ class UCardMemoryMVVMViewModelBase;
  * 
  */
 UCLASS()
-class CARDMEMORY_API UCardMemoryWidget : public UCommonUserWidget
+class CARDMEMORY_API UCardMemoryWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 

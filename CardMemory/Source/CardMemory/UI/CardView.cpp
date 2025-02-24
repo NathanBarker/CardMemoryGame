@@ -19,6 +19,7 @@ void UCardView::NativeConstruct()
 	CardWidgetViewModel = Cast<UCardViewModel>(WidgetViewModel);
 	UpdateWidget();
 	WidgetSwitcher->SetActiveWidgetIndex(IsHidden);
+	UnbindTriggeringInputActionToClick();
 }
 
 void UCardView::NativeOnSelected(bool bBroadcast)
@@ -37,29 +38,18 @@ void UCardView::NativeOnClicked()
 	FlipCard();
 }
 
-void UCardView::NativeOnEnabled()
+void UCardView::NativeOnRemovedFromFocusPath(const FFocusEvent& InFocusEvent)
 {
-	Super::NativeOnEnabled();
+	Super::NativeOnRemovedFromFocusPath(InFocusEvent);
+	UnbindTriggeringInputActionToClick();
+	SetSelectedInternal(false);
 }
 
-void UCardView::NativeOnDisabled()
+void UCardView::NativeOnAddedToFocusPath(const FFocusEvent& InFocusEvent)
 {
-	Super::NativeOnDisabled();
-}
-
-void UCardView::NativeOnHovered()
-{
-	Super::NativeOnHovered();
-}
-
-void UCardView::NativeOnUnhovered()
-{
-	Super::NativeOnUnhovered();
-}
-
-void UCardView::HandleFocusReceived()
-{
-	Super::HandleFocusReceived();
+	Super::NativeOnAddedToFocusPath(InFocusEvent);
+	BindTriggeringInputActionToClick();
+	SetSelectedInternal(true);
 }
 
 void UCardView::UpdateWidget()
