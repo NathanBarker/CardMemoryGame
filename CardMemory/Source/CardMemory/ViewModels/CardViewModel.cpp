@@ -9,42 +9,22 @@ UCardViewModel::UCardViewModel()
 
 void UCardViewModel::SetType(const EType NewType)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(Type, NewType))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(Type);
-	}
+	UE_MVVM_SET_PROPERTY_VALUE(Type, NewType);
 }
 
 void UCardViewModel::SetPatternType(const int32& NewPatternType)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(PatternType, NewPatternType))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(PatternType);
-	}
+	UE_MVVM_SET_PROPERTY_VALUE(PatternType, NewPatternType);
 }
 
 void UCardViewModel::SetIsRevealed(const bool NewIsRevealed)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(IsRevealed, NewIsRevealed))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(IsRevealed);
-	}
+	UE_MVVM_SET_PROPERTY_VALUE(IsRevealed, NewIsRevealed);
 }
 
-void UCardViewModel::SetCardIndex(const int32 NewIndex)
+void UCardViewModel::SetCardGUID(const int32 NewGUID)
 {
-	if (UE_MVVM_SET_PROPERTY_VALUE(CardIndex, NewIndex))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(CardIndex);
-	}
-}
-
-void UCardViewModel::SetPairIndex(const int32 NewPairIndex)
-{
-	if (UE_MVVM_SET_PROPERTY_VALUE(PairIndex, NewPairIndex))
-	{
-		UE_MVVM_BROADCAST_FIELD_VALUE_CHANGED(PairIndex);
-	}
+	UE_MVVM_SET_PROPERTY_VALUE(CardGUID, NewGUID);
 }
 
 bool UCardViewModel::GetIsRevealed() const
@@ -52,14 +32,9 @@ bool UCardViewModel::GetIsRevealed() const
 	return IsRevealed;
 }
 
-int32 UCardViewModel::GetCardIndex() const
+int32 UCardViewModel::GetCardGUID() const
 {
-	return CardIndex;
-}
-
-int32 UCardViewModel::GetPairIndex() const
-{
-	return PairIndex;
+	return CardGUID;
 }
 
 int32 UCardViewModel::GetPatternType() const

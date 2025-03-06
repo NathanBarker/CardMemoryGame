@@ -6,7 +6,6 @@
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
 
-UE_DEFINE_GAMEPLAY_TAG(UIMessagePopulateCards, "UIMessagePopulateCards");
 
 void ACardMemoryHUD::PostInitializeComponents()
 {
@@ -64,5 +63,6 @@ void ACardMemoryHUD::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("Failed to get the CardLevelViewModel"));
 	}
 
+	GameController->AssignLevelViewModel(CardLevelViewModel);
 	CardLevelViewModel->SetCardViewModels(GameController->CreateDeck(0));
 }

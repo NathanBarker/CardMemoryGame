@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "CardMemoryWidget.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
-#include "CardMemory/Payloads/CardsPayload.h"
 #include "MainScreen.generated.h"
 
 class UUniformGridPanel;
@@ -24,7 +23,8 @@ class CARDMEMORY_API UMainScreen : public UCardMemoryWidget
 protected:
 	virtual void NativeConstruct() override;
 	virtual void UpdateWidget() override;
-	void PopulateDeck(FGameplayTag InChannel, const FCardsMessage& InMessage);
+	void FlipCardsBack(FGameplayTag InChannel, const FGuid& InMessage);
+	void DisableCards(FGameplayTag InChannel, const FGuid& InMessage);
 
 private:
 	UPROPERTY(meta=(BindWidget))
@@ -35,6 +35,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UCardMemoryButtonBase> CardTemplate = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
 	int32 ColumnMaxCount = 0;

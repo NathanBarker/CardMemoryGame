@@ -1,11 +1,11 @@
 // // Nathan Barker Card Memory Game Personal Training Project. 
 
 #include "MainScreen.h"
-#include "CardMemory/UI/CardMemoryHUD.h"
 #include "CardMemory/UI/CardView.h"
 #include "CardMemory/UI/CardMemoryButtonBase.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
 #include "GameplayTagContainer.h"
+#include "CardMemory/Gameplay/GameController.h"
 #include "Components/UniformGridPanel.h"
 #include "Components/UniformGridSlot.h"
 
@@ -13,8 +13,11 @@ void UMainScreen::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-	MessageSubsystem.RegisterListener(UIMessagePopulateCards, this, &UMainScreen::PopulateDeck);
+	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	check(MessageSubsystem);
+
+	MessageSubsystem->RegisterListener(UI_MessageFlipCardsBack, this, &UMainScreen::FlipCardsBack);
+	MessageSubsystem->RegisterListener(UI_DisableCards, this, &UMainScreen::DisableCards);
 
 	WidgetViewModel = GetVM<UCardLevelViewModel>();
 	SetViewModel(WidgetViewModel);
@@ -26,7 +29,6 @@ void UMainScreen::UpdateWidget()
 	{
 		return;
 	}
-	// create deck based on the level viewmodel
 
 	int32 CurrentColumn = 0;
 	int32 CurrentRow = 0;
@@ -61,6 +63,45 @@ void UMainScreen::UpdateWidget()
 	FirstCardView->SetFocus();
 }
 
-void UMainScreen::PopulateDeck(FGameplayTag InChannel, const FCardsMessage& InMessage)
+void UMainScreen::FlipCardsBack(FGameplayTag InChannel, const FGuid& InMessage)
 {
+	for (UWidget* ChildWidget : CardDeck->GetAllChildren())
+	{
+		if (!IsValid(ChildWidget))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to get the child widget from the card deck to flip at"));
+			return;
+		}
+		
+		UCardView* CardView = Cast<UCardView>(ChildWidget);
+		if (!IsValid(CardView))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to get the CardView to flip at"));
+			return;
+		}
+		
+		if (!CardView->IsHidden) CardView->HideCard();
+		CardView->SetIsInteractionEnabled(true);
+	}
+}
+
+void UMainScreen::DisableCards(FGameplayTag InChannel, const FGuid& InMessage)
+{
+	for (UWidget* ChildWidget : CardDeck->GetAllChildren())
+	{
+		if (!IsValid(ChildWidget))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to get the child widget from the card deck to disable"));
+			return;
+		}
+		
+		UCardView* CardView = Cast<UCardView>(ChildWidget);
+		if (!IsValid(CardView))
+		{
+			UE_LOG(LogTemp, Error, TEXT("Failed to get the CardView to disable"));
+			return;
+		}
+		
+		CardView->SetIsInteractionEnabled(false);
+	}
 }

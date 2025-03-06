@@ -8,6 +8,8 @@
 #include "CardMemory/ViewModels/CardViewModel.h"
 #include "Components/WidgetSwitcher.h"
 
+UE_DEFINE_GAMEPLAY_TAG(UI_MessageCardSelected, "UI_MessageCardSelected");
+
 void UCardView::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -16,6 +18,10 @@ void UCardView::NativeConstruct()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Failed to get the Card View Model while constructing the widget"));
 	}
+	
+	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	check(MessageSubsystem);
+
 	CardWidgetViewModel = Cast<UCardViewModel>(WidgetViewModel);
 	UpdateWidget();
 	WidgetSwitcher->SetActiveWidgetIndex(IsHidden);
@@ -34,8 +40,13 @@ void UCardView::NativeOnDeselected(bool bBroadcast)
 
 void UCardView::NativeOnClicked()
 {
+	if (IsCardRevealed || !IsHidden) return;
 	Super::NativeOnClicked();
+
 	FlipCard();
+	const int32 CardIndex = CardWidgetViewModel->GetCardGUID();
+	FGuid OutgoingMessage(CardIndex, 0, 0, 0);
+	MessageSubsystem->BroadcastMessage(UI_MessageCardSelected, OutgoingMessage);
 }
 
 void UCardView::NativeOnRemovedFromFocusPath(const FFocusEvent& InFocusEvent)
@@ -56,6 +67,11 @@ void UCardView::UpdateWidget()
 {
 	SetCardIcon(CardWidgetViewModel->GetType());
 	SetCardPattern(CardWidgetViewModel->GetPatternType());
+
+	if(CardWidgetViewModel->GetIsRevealed())
+	{
+		SetCardRevealedState(CardWidgetViewModel->GetIsRevealed());
+	}
 }
 
 void UCardView::SetCardIcon(const EType& Type)
@@ -72,13 +88,21 @@ void UCardView::SetCardPattern(const int32& PatternType)
 void UCardView::SetCardRevealedState(bool IsRevealed)
 {
 	IsCardRevealed = IsRevealed;
-	WidgetSwitcher->SetActiveWidgetIndex(IsRevealed);
+	WidgetSwitcher->SetActiveWidgetIndex(0);
 	WidgetSwitcher->SetRenderOpacity(0.75f);
 }
 
 void UCardView::FlipCard()
 {
-	if (IsCardRevealed) return;
+	PlayAnimation(RevealCard, 0.0f, 1, EUMGSequencePlayMode::Forward, 1.0f);
 	IsHidden = !IsHidden;
+	WidgetSwitcher->SetActiveWidgetIndex(IsHidden);
+}
+
+void UCardView::HideCard()
+{
+	if(IsCardRevealed) return;
+	PlayAnimation(RevealCard, 0.0f, 1, EUMGSequencePlayMode::Forward, 1.0f);
+	IsHidden = true;
 	WidgetSwitcher->SetActiveWidgetIndex(IsHidden);
 }

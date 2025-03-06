@@ -23,7 +23,7 @@ class CARDMEMORY_API ACardMemoryHUD : public AHUD
 
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
-
+	
 	UPROPERTY()
 	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 

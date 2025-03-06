@@ -5,8 +5,12 @@
 #include "CoreMinimal.h"
 #include "CardMemoryButtonBase.h"
 #include "CommonButtonBase.h"
+#include "NativeGameplayTags.h"
 #include "CardMemory/GameData/CardModel.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "CardView.generated.h"
+
+CARDMEMORY_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UI_MessageCardSelected);
 
 class UCommonLazyImage;
 class UCardPatternView;
@@ -20,6 +24,11 @@ UCLASS()
 class CARDMEMORY_API UCardView : public UCardMemoryButtonBase
 {
 	GENERATED_BODY()
+
+public:
+	void FlipCard();
+	void HideCard();
+	bool IsHidden = true;
 
 protected:
 	virtual void NativeConstruct() override;
@@ -43,11 +52,15 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSoftObjectPtr<UTexture2D>> PSIcons;
 	
+	UPROPERTY(Transient, meta=(BindWidgetAnim))
+	TObjectPtr<UWidgetAnimation> RevealCard;
+
+	UPROPERTY()
+	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
+	
 	void SetCardIcon(const EType& Type);
 	void SetCardPattern(const int32& PatternType);
 	void SetCardRevealedState(bool IsRevealed);
-	void FlipCard();
-
-	bool IsHidden = true;
+	
 	bool IsCardRevealed = false;
 };
