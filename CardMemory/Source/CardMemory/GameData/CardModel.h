@@ -3,7 +3,7 @@
 #include "CardModel.generated.h"
 
 UENUM()
-enum class EType : uint8
+enum class EType : int32
 {
 	Cross = 0,
 	Circle = 1,
