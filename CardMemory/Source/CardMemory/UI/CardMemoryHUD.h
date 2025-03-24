@@ -12,6 +12,7 @@ CARDMEMORY_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UIMessagePopulateCards);
 class UGameplayMessageSubsystem;
 class UCardLevelViewModel;
 class AGameController;
+class SCardMemoryText;
 
 /**
  * 
@@ -32,4 +33,9 @@ class CARDMEMORY_API ACardMemoryHUD : public AHUD
 
 	UPROPERTY()
 	TObjectPtr<AGameController> GameController = nullptr;
+
+	TSharedPtr<SCardMemoryText> TimerText = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 HeaderTextZOrder = 1;
 };

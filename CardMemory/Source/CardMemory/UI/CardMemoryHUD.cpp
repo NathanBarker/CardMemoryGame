@@ -1,10 +1,12 @@
 // // Nathan Barker Card Memory Game Personal Training Project. 
 
 #include "CardMemoryHUD.h"
-#include "MVVMGameSubsystem.h"
+
 #include "CardMemory/Gameplay/GameController.h"
-#include "GameFramework/GameplayMessageSubsystem.h"
+#include "CardMemory/SlateUI/CardMemoryText.h"
 #include "CardMemory/ViewModels/LevelVMs/CardLevelViewModel.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "MVVMGameSubsystem.h"
 
 
 void ACardMemoryHUD::PostInitializeComponents()
@@ -14,11 +16,23 @@ void ACardMemoryHUD::PostInitializeComponents()
 	const UGameInstance* GameInstance = GetGameInstance();
 	check(GameInstance);
 
+	if(!IsValid(GameInstance))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to get the Game Instance"));
+		return;
+	}
+
 	UMVVMGameSubsystem* ViewModelGameSubsystem = GameInstance->GetSubsystem<UMVVMGameSubsystem>();
 	check(ViewModelGameSubsystem);
 
 	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 	check(MessageSubsystem);
+
+	if (!IsValid(MessageSubsystem))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to get the MessageSubsystem"));
+		return;
+	}
 
 	if (!IsValid(ViewModelGameSubsystem))
 	{
@@ -65,4 +79,8 @@ void ACardMemoryHUD::BeginPlay()
 
 	GameController->AssignLevelViewModel(CardLevelViewModel);
 	CardLevelViewModel->SetCardViewModels(GameController->CreateDeck(0));
+
+	TimerText = SNew(SCardMemoryText);
+	GEngine->GameViewport->AddViewportWidgetContent(TimerText.ToSharedRef(), HeaderTextZOrder);
+	
 }
