@@ -13,6 +13,7 @@ class UGameplayMessageSubsystem;
 class UCardLevelViewModel;
 class AGameController;
 class SCardMemoryText;
+class SCardMemoryImage;
 
 /**
  * 
@@ -35,6 +36,16 @@ class CARDMEMORY_API ACardMemoryHUD : public AHUD
 	TObjectPtr<AGameController> GameController = nullptr;
 
 	TSharedPtr<SCardMemoryText> TimerText = nullptr;
+
+	TSharedPtr<SCardMemoryImage> Background = nullptr;
+	
+	TSharedPtr<SCardMemoryImage> DarkBackground = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	FSlateBrush BackgroundImage;
+
+	UPROPERTY(EditAnywhere)
+	FSlateBrush DarkernBackgroundImage;
 
 	UPROPERTY(EditDefaultsOnly)
 	int32 HeaderTextZOrder = 1;
